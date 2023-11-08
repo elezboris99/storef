@@ -1,7 +1,15 @@
 import React from "react";
 import axios from "axios";
 import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Navbar = ({token}) => {
+  let nav= useNavigate();
+function handleLoginCheck(){
+ if (window.sessionStorage.getItem("auth_token")==null) alert("Potrebno je da se ulogujete kako biste pristupili narudzbama.")
+
+
+
+}
 
   function handleLogout(){
    console.log("proba");
@@ -18,9 +26,9 @@ const Navbar = ({token}) => {
       console.log(JSON.stringify(response.data));
       window.sessionStorage.removeItem("auth_token");
       window.sessionStorage.removeItem("user_id");
-
-      window.location.reload();
-
+      
+  nav("/");
+window.location.reload();
     })
     .catch((error) => {
       console.log(error);
@@ -71,8 +79,18 @@ const Navbar = ({token}) => {
             </li>
          ):(<></>)
 }
-            <li className="nav-item">
-              <a className="nav-link" href="/invoices">
+
+            <li className="nav-item" onClick={handleLoginCheck}>
+            <a className="nav-link" href={
+              (window.sessionStorage.getItem("auth_token")==null)?
+              "#"
+              :(
+                // eslint-disable-next-line
+(window.sessionStorage.getItem("user_id")==1)? "/invoices": '/users/'+window.sessionStorage.getItem("user_id")+'/invoices'
+
+
+              )
+              }>
                 Narudzbe
               </a>
             </li>
@@ -82,12 +100,13 @@ const Navbar = ({token}) => {
                   Login
                 </a>
                 </li>
-            ) : (
+            ) : (<div>
               <li className="nav-item">
                 <button className="nav-link no-border" onClick={handleLogout} > 
                   Logout
                   </button>
                 </li>
+                </div>
             )}
        
           </ul>

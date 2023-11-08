@@ -14,7 +14,7 @@ function handleInput(e){
 let newUserData = UserData;
 newUserData[e.target.name]=e.target.value;
 SetUserData(newUserData);
-console.log(UserData);
+
 
 }
 function handleLogin(e){

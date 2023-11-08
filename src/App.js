@@ -9,6 +9,8 @@ import NewProduct from "./components/NewProduct";
 import UpdateProduct from "./components/UpdateProduct";
 import Invoices from "./components/Invoices";
 import Home from "./components/Home";
+import InvoicesPages from "./components/InvoicesPage";
+
 function App() {
   const[token, setToken] = useState(window.sessionStorage.getItem("auth_token"));
 function addToken(auth_token){
@@ -26,8 +28,8 @@ setToken(auth_token);
         <Route path="products" element={<ProductsPage/>}/>
         <Route path="newproduct" element={<NewProduct/>}/>
         <Route path="updateproduct/:productId" element={<UpdateProduct/>}/>
-        <Route path="invoices" element={<Invoices/>}/>
-
+        <Route path="users/:userId/invoices" element={<Invoices/>}/>
+        <Route path="invoices" element={<InvoicesPages/>}/>
         <Route path="login" element={<LoginPage addToken = {addToken}/>} />
         <Route path="register" element={<RegisterPage />} />
 
